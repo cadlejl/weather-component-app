@@ -1,0 +1,28 @@
+.card {
+    box-shadow: 2px 2px 5px 0 rgba(0,0,0,.24);
+}
+.card,
+.card-header,
+.card-footer {
+    border: none;
+    border-radius: 0;
+    background-color: #00bcd4;
+    color: #fff;
+}
+.card-header {
+    padding: 1.5rem;
+}
+.card-footer {
+    padding: 1rem .5rem;
+}
+.card-body {
+    padding: 3rem;
+}
+.card-body,
+.card-footer {
+    text-align: center;
+}
+p {
+    margin: .2rem;
+    text-transform: uppercase;
+}
