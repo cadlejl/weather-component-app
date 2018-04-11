@@ -3,7 +3,7 @@ export class Weather {
         public temp: number,
         public summary: string,
         public wind: number,
-        public humidty: number,
+        public humidity: number,
         public icon: string
     ) { }
 }

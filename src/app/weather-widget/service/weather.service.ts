@@ -23,8 +23,6 @@ export class WeatherService {
                 }
             });
         } else {
-            //console.error("Geolocation is not available");
-            //return [0,0]; — Before turning method into Observable
             return Observable.throw("Geolocation is not available");
         }
     }

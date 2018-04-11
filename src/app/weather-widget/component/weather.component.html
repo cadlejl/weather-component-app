@@ -5,23 +5,28 @@
                 <p>Leeds, UK</p>
             </div>
             <div class="col-4 text-right">
-                <h1>3&deg;</h1>
+                <h1>{{
+                    weatherData.temp
+                    | tempUnit: currentTempUnit
+                    | number: '.0-0'
+                }}&deg;
+                </h1>
             </div>
         </div>
     </div>
     <div class="card-body">
         <h1>0</h1>
-        <p>Rain</p>
+        <p>{{ weatherData.summary }}</p>
     </div>
     <div class="card-footer">
         <div class="row">
             <div class="col-5">
                 <p>Wind</p>
-                <p>14mph</p>
+                <p>{{ weatherData.wind | speedUnit: currentSpeedUnit }}</p>
             </div>
             <div class="col-5 offset-2">
                 <p>Humidity</p>
-                <p>80%</p>
+                <p>{{ weatherData.humidity | percent }}</p>
             </div>
         </div>
     </div>
