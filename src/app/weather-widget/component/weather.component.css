@@ -22,6 +22,9 @@
 .card-footer {
     text-align: center;
 }
+h1 {
+    font-size: 2rem;
+}
 p {
     margin: .2rem;
     text-transform: uppercase;

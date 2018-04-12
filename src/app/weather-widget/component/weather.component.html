@@ -1,21 +1,21 @@
-<div class="card">
+<div class="card" (click)="toggleUnits()">
     <div class="card-header">
         <div class="row">
             <div class="col-8">
-                <p>Leeds, UK</p>
+                <p>{{ currentCity }}, {{ currentState }}</p>
             </div>
             <div class="col-4 text-right">
                 <h1>{{
                     weatherData.temp
                     | tempUnit: currentTempUnit
                     | number: '.0-0'
-                }}&deg;
+                }}&deg;{{ tempUnitSymbol }}
                 </h1>
             </div>
         </div>
     </div>
     <div class="card-body">
-        <h1>0</h1>
+        <canvas id="icon"></canvas>
         <p>{{ weatherData.summary }}</p>
     </div>
     <div class="card-footer">

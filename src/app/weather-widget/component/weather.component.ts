@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { WeatherService } from '../service/weather.service';
 import { Weather } from '../model/weather';
 
+declare var Skycons: any; // No TypaScript definition file for Skycons
+
 @Component({
     moduleId: module.id,
     selector: 'weather-widget',
@@ -14,6 +16,10 @@ export class WeatherComponent implements OnInit {
     weatherData = new Weather(null, null, null, null, null)
     currentSpeedUnit = "kph";
     currentTempUnit = "fahrenheit";
+    tempUnitSymbol = "F";
+    currentCity = "";
+    currentState = "";
+    icons = new Skycons({ "color": "#fff" });
 
     constructor(private service: WeatherService) { }
 
@@ -23,8 +29,9 @@ export class WeatherComponent implements OnInit {
     getCurrentLocation() {
         this.service.getCurrentLocation()
             .subscribe(position => {
-                this.pos = position
-                this.getCurrentWeather()
+                this.pos = position;
+                this.getCurrentWeather();
+                this.getLocationName();
             },
             err => console.error(err));
     }
@@ -41,7 +48,46 @@ export class WeatherComponent implements OnInit {
                 this.weatherData.humidity = weather["currently"]["humidity"],
                 this.weatherData.icon = weather ["currently"]["icon"]
                 console.log("Weather: ", this.weatherData); //TODO: REMOVE
+                this.setIcon();
             },
             err => console.error(err));
+    }
+
+    getLocationName() {
+        this.service.getLocationName(this.pos.coords.latitude, this.pos.coords.longitude)
+            .subscribe(location => {
+                console.log(location); // REMOVE
+                this.currentCity = location["results"][1]['address_components'][1]["long_name"];
+                this.currentState = location["results"][1]['address_components'][3]["short_name"];
+                console.log("Name: ", this.currentCity + ", ", this.currentState); // TODO: REMOVE
+            });
+    }
+
+    toggleUnits() {
+        this.toggleTempUnits();
+        this.toggleSpeedUnits();
+    }
+
+    toggleTempUnits() {
+        if(this.currentTempUnit == "fahrenheit") {
+            this.currentTempUnit = "celsius";
+            this.tempUnitSymbol = "C";
+        } else {
+            this.currentTempUnit = "fahrenheit";
+            this.tempUnitSymbol = "F";
+        }
+    }
+
+    toggleSpeedUnits() {
+        if(this.currentSpeedUnit == "kph") {
+            this.currentSpeedUnit = "mph";
+        } else {
+            this.currentSpeedUnit = "kph";
+        }
+    }
+
+    setIcon() {
+        this.icons.add("icon", this.weatherData.icon);
+        this.icons.play();
     }
  }
