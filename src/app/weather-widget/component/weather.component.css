@@ -1,13 +1,12 @@
 .card {
     box-shadow: 2px 2px 5px 0 rgba(0,0,0,.24);
+    transition: background-color .5s ease;
 }
 .card,
 .card-header,
 .card-footer {
     border: none;
     border-radius: 0;
-    background-color: #00bcd4;
-    color: #fff;
 }
 .card-header {
     padding: 1.5rem;
@@ -15,17 +14,50 @@
 .card-footer {
     padding: 1rem .5rem;
 }
+.card-header,
+.card-footer {
+    background-color: transparent;
+}
 .card-body {
-    padding: 3rem;
+    padding: 1rem;
+}
+/* For the next two, I don't see what "position, top, left, width, margin" are doing*/
+#indicator {
+    position: relative;
+    height: 210px;
+}
+#indicator i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    margin: -8% 0 0 -25%;
+}
+canvas {
+    margin-bottom: 1rem;
 }
 .card-body,
 .card-footer {
     text-align: center;
 }
+.card-footer {
+    padding-bottom: .5rem;
+}
+small {
+    margin: auto;
+}
+#helper-row {
+    padding-top: .5rem;
+}
 h1 {
     font-size: 2rem;
 }
-p {
-    margin: .2rem;
-    text-transform: uppercase;
+h2 {
+    font-size: 1.5rem;
+}
+h3 {
+    font-size: 1rem;
+}
+.pointer {
+    cursor: pointer;
 }

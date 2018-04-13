@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherService } from '../service/weather.service';
 import { Weather } from '../model/weather';
+import { WEATHER_COLORS } from '../constants/constants'; 
 
 declare var Skycons: any; // No TypaScript definition file for Skycons
 
@@ -19,7 +20,8 @@ export class WeatherComponent implements OnInit {
     tempUnitSymbol = "F";
     currentCity = "";
     currentState = "";
-    icons = new Skycons({ "color": "#fff" });
+    icons = new Skycons();
+    dataReceived = false;
 
     constructor(private service: WeatherService) { }
 
@@ -49,6 +51,7 @@ export class WeatherComponent implements OnInit {
                 this.weatherData.icon = weather ["currently"]["icon"]
                 console.log("Weather: ", this.weatherData); //TODO: REMOVE
                 this.setIcon();
+                this.dataReceived = true;
             },
             err => console.error(err));
     }
@@ -63,10 +66,10 @@ export class WeatherComponent implements OnInit {
             });
     }
 
-    toggleUnits() {
-        this.toggleTempUnits();
-        this.toggleSpeedUnits();
-    }
+    // toggleUnits() {
+    //     this.toggleTempUnits();
+    //     this.toggleSpeedUnits();
+    // }
 
     toggleTempUnits() {
         if(this.currentTempUnit == "fahrenheit") {
@@ -89,5 +92,15 @@ export class WeatherComponent implements OnInit {
     setIcon() {
         this.icons.add("icon", this.weatherData.icon);
         this.icons.play();
+    }
+
+    setStyles(): Object {
+        if(this.weatherData.icon) {
+            this.icons.color = WEATHER_COLORS[this.weatherData.icon]["color"];
+            return WEATHER_COLORS[this.weatherData.icon];
+        } else {
+            this.icons.color = WEATHER_COLORS["default"]["color"];
+            return WEATHER_COLORS["default"];
+        }
     }
  }

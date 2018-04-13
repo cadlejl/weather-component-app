@@ -1,11 +1,12 @@
-<div class="card" (click)="toggleUnits()">
-    <div class="card-header">
+<div class="card" [ngStyle]="setStyles()">
+    <div class="card-header" [class.invisible]="!dataReceived">
         <div class="row">
             <div class="col-8">
-                <p>{{ currentCity }}, {{ currentState }}</p>
+                <h2><i class="fa fa-map-marker" aria-hidden="true"></i>
+                    {{ currentCity }} {{ currentState }}</h2>
             </div>
             <div class="col-4 text-right">
-                <h1>{{
+                <h1 class="pointer" (click)="toggleTempUnits()">{{
                     weatherData.temp
                     | tempUnit: currentTempUnit
                     | number: '.0-0'
@@ -15,19 +16,26 @@
         </div>
     </div>
     <div class="card-body">
-        <canvas id="icon"></canvas>
-        <p>{{ weatherData.summary }}</p>
+        <div id="indicator" [hidden]="dataReceived">
+            <i class="fa fa-circle-o-notch fa-spin fa-4x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+        </div>
+        <canvas id="icon" [hidden]="!dataReceived"></canvas>
+        <h1>{{ weatherData.summary }}</h1>
     </div>
-    <div class="card-footer">
+    <div class="card-footer" [class.invisible]="!dataReceived">
         <div class="row">
-            <div class="col-5">
-                <p>Wind</p>
-                <p>{{ weatherData.wind | speedUnit: currentSpeedUnit }}</p>
+            <div class="col-5 pointer" (click)="toggleSpeedUnits()">
+                <h3>Wind</h3>
+                <h3>{{ weatherData.wind | speedUnit: currentSpeedUnit }}</h3>
             </div>
             <div class="col-5 offset-2">
-                <p>Humidity</p>
-                <p>{{ weatherData.humidity | percent }}</p>
+                <h3>Humidity</h3>
+                <h3>{{ weatherData.humidity | percent }}</h3>
             </div>
+        </div>
+        <div class="row" id="helper-row">
+            <small class="text-muted">Click to switch between &deg;F/&deg;C &amp; mph/kph </small>
         </div>
     </div>
 </div>
